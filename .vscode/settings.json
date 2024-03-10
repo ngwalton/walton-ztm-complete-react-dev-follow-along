@@ -3,5 +3,7 @@
   "editor.formatOnPaste": true,
   "eslint.format.enable": true,
   "[javascript]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
-  "[json]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" }
+  "[json]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
+  "[jsx-tags]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
+  "[javascriptreact]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" }
 }
