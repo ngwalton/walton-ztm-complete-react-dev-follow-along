@@ -40,6 +40,7 @@ class App extends Component {
     const { onSearchChange, filteredMonsters } = this
     return (
       <div className="App">
+        <h1 className='app-title'>Monster Rolodex</h1>
         <SearchBox
           className='search-box'
           id='monster-search'
