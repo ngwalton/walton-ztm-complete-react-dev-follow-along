@@ -1,4 +1,5 @@
 import { Component, React } from 'react'
+import Card from '../card/card.component.jsx'
 import './card-list.styles.css'
 
 class CardList extends Component {
@@ -11,17 +12,8 @@ class CardList extends Component {
         {
           // eslint-disable-next-line
           monsters.map(monster => {
-            const { id, name, email } = monster
-
             return (
-              <div className='card-container' key={id}>
-                <img
-                  alt={`monster ${name}`}
-                  src={`https://robohash.org/${id}/?set=set2&size=180x180`}
-                />
-                <h2>{name}</h2>
-                <p>{email}</p>
-              </div>
+              <Card key='' monster={monster} />
             )
           })
         }
