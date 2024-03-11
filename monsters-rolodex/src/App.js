@@ -1,5 +1,5 @@
 // import { Component, React } from 'react'
-import { useState, useEffect, React } from 'react'
+import { useState, useEffect, React, useMemo } from 'react'
 import './App.css'
 import CardList from './components/card-list/card-list.component.jsx'
 import SearchBox from './components/search-box/search-box.component.jsx'
@@ -7,21 +7,28 @@ import SearchBox from './components/search-box/search-box.component.jsx'
 const App = () => {
   const [searchField, setSearchField] = useState('')
   const [monsters, setMonsters] = useState([])
-  const [filteredMonsters, setFilteredMonsters] = useState(monsters)
+  // const [filteredMonsters, setFilteredMonsters] = useState(monsters)
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(res => res.json())
       .then(users => setMonsters(users))
-  }, []) // empty retrigger array mean this will only run once
+  }, []) // empty retrigger array means this will only run once
 
-  useEffect(() => {
-    const newFilteredMonsters = monsters.filter(monster => {
-      return monster.name.toLowerCase().includes(searchField)
-    })
+  // useEffect(() => {
+  //   const newFilteredMonsters = monsters.filter(monster => {
+  //     return monster.name.toLowerCase().includes(searchField)
+  //   })
 
-    setFilteredMonsters(newFilteredMonsters)
-  }, [monsters, searchField]) // update whenever monsters or searchField change
+  //   setFilteredMonsters(newFilteredMonsters)
+  // }, [monsters, searchField]) // update whenever monsters or searchField change
+
+  // avoid putting derived variables in state
+  const filteredMonsters = useMemo(() => (
+    monsters.filter(monster => (
+      monster.name.toLowerCase().includes(searchField)
+    ))
+  ), [monsters, searchField])
 
   const onSearchChange = (event) => {
     const searchFieldString = event.target.value.toLowerCase()
