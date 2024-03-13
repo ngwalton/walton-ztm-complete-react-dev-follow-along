@@ -21,13 +21,15 @@ const firebaseConfig = {
 // eslint-disable-next-line no-unused-vars
 const firebaseApp = initializeApp(firebaseConfig);
 
-const provider = new GoogleAuthProvider();
+const provider = new GoogleAuthProvider(); // there are lots of other providers
 provider.setCustomParameters({
   prompt: 'select_account',
 });
 
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+// export const signInWithGoogleRedirect = () =>
+//   signInWithRedirect(auth, provider);
 export const db = getFirestore();
 
 export const createUserDocumentFromAuth = async (userAuth) => {

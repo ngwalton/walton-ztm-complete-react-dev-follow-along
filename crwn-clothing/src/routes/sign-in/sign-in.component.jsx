@@ -1,9 +1,27 @@
+// import { useEffect } from 'react';
+// import { getRedirectResult } from 'firebase/auth';
+
 import {
+  // auth,
   signInWithGooglePopup,
+  // signInWithGoogleRedirect,
   createUserDocumentFromAuth,
 } from '../../utils/firebase/firebase.utils';
 
 function SignIn() {
+  // useEffect(() => {
+  //   async function dummy() {
+  //     // get the response for the redirect that just happened
+  //     const response = await getRedirectResult(auth);
+  //     if (response) {
+  //       // eslint-disable-next-line no-unused-vars
+  //       const userDocRef = await createUserDocumentFromAuth(response.user);
+  //     }
+  //   }
+
+  //   dummy();
+  // }, []);
+
   const logGoogleUser = async () => {
     const { user } = await signInWithGooglePopup();
     // eslint-disable-next-line no-unused-vars
@@ -16,6 +34,9 @@ function SignIn() {
       <button onClick={logGoogleUser} type="button">
         Sing in with Google Popup
       </button>
+      {/* <button onClick={signInWithGoogleRedirect} type="button">
+        Sing in with Google Redirect
+      </button> */}
     </div>
   );
 }
