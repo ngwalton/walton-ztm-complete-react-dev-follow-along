@@ -1,4 +1,5 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-console */
+/* eslint-disable no-alert */
 
 import { useState } from 'react';
 
