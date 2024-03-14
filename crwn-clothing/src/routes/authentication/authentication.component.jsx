@@ -10,7 +10,7 @@ import {
 
 import SignUpForm from '../../components/sign-up-form/sign-up-form.component';
 
-function SignIn() {
+function Authentication() {
   // useEffect(() => {
   //   async function dummy() {
   //     // get the response for the redirect that just happened
@@ -44,4 +44,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default Authentication;
