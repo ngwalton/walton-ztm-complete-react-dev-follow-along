@@ -1,14 +1,18 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
+
+import { UserContext } from '../../contexts/user.context';
+
 import {
   signInWithGooglePopup,
   createUserDocumentFromAuth,
   signInUserWithEmailAndPassword,
 } from '../../utils/firebase/firebase.utils';
+
 import './sign-in-form.styles.scss';
 
 const defaultFormFields = {
@@ -20,6 +24,8 @@ function SignInForm() {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
+  const { setCurrentUser } = useContext(UserContext);
+
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
@@ -30,8 +36,9 @@ function SignInForm() {
     try {
       resetFormFields();
 
-      const response = await signInUserWithEmailAndPassword(email, password);
-      console.log(response);
+      const { user } = await signInUserWithEmailAndPassword(email, password);
+      setCurrentUser(user);
+
       alert(`User successfully logged in`);
     } catch (error) {
       if (error.code === 'auth/invalid-credential') {
