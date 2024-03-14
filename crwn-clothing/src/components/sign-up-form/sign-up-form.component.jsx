@@ -3,10 +3,12 @@
 import { useState } from 'react';
 
 import FormInput from '../form-input/form-input.component';
+import Button from '../button/button.component';
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from '../../utils/firebase/firebase.utils';
+import './sign-up-form.styles.scss';
 
 const defaultFormFields = {
   displayName: '',
@@ -65,8 +67,9 @@ function SignUpForm() {
   };
 
   return (
-    <div>
-      <h2>Sign up with email and password</h2>
+    <div className="sign-up-container">
+      <h2 className="">Don&apos;t have an account?</h2>
+      <span>Sign up with email and password</span>
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Display Name"
@@ -108,7 +111,7 @@ function SignUpForm() {
           value={confirmPassword}
           autoComplete="new-password"
         />
-        <button type="submit">Sign up</button>
+        <Button type="submit">Sign up</Button>
       </form>
     </div>
   );
