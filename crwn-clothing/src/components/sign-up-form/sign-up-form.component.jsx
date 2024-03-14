@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import FormInput from '../form-input/form-input.component';
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
@@ -57,7 +58,7 @@ function SignUpForm() {
     return null;
   };
 
-  const handleChange = (event) => {
+  const onChange = (event) => {
     const { name, value } = event.target;
 
     setFormFields({ ...formFields, [name]: value });
@@ -67,38 +68,42 @@ function SignUpForm() {
     <div>
       <h2>Sign up with email and password</h2>
       <form onSubmit={handleSubmit}>
-        <label>Display Name</label>
-        <input
+        <FormInput
+          label="Display Name"
+          id="display-name"
           type="text"
           required
-          onChange={handleChange}
+          onChange={onChange}
           name="displayName"
           value={displayName}
           autoComplete="username"
         />
-        <label>Email</label>
-        <input
+        <FormInput
+          label="Email"
+          id="email"
           type="email"
           required
-          onChange={handleChange}
+          onChange={onChange}
           name="email"
           value={email}
           autoComplete="email"
         />
-        <label>Password</label>
-        <input
+        <FormInput
+          label="Password"
+          id="password"
           type="password"
           required
-          onChange={handleChange}
+          onChange={onChange}
           name="password"
           value={password}
           autoComplete="new-password"
         />
-        <label>Confirm password</label>
-        <input
+        <FormInput
+          label="Confirm password"
+          id="confirm-password"
           type="password"
           required
-          onChange={handleChange}
+          onChange={onChange}
           name="confirmPassword"
           value={confirmPassword}
           autoComplete="new-password"
