@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useCallback } from 'react';
 
 import { CartContext } from '../../contexts/cart.context';
 
@@ -7,7 +7,12 @@ import { ReactComponent as ShoppingIcon } from '../../assets/shopping-bag.svg';
 import './cart-icon.styles.scss';
 
 function CartIcon() {
-  const { isCartOpen, setIsCartOpen } = useContext(CartContext);
+  const { isCartOpen, setIsCartOpen, cartItems } = useContext(CartContext);
+
+  const totalItems = useCallback(
+    () => cartItems.reduce((total, cartItem) => total + cartItem.quantity, 0),
+    [cartItems]
+  );
 
   const toggleIsCartOpen = () => setIsCartOpen(!isCartOpen);
 
@@ -19,7 +24,7 @@ function CartIcon() {
       role="button"
     >
       <ShoppingIcon className="shopping-icon" />
-      <span className="item-count">0</span>
+      <span className="item-count">{totalItems()}</span>
     </div>
   );
 }
