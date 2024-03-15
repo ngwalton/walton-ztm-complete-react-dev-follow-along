@@ -6,11 +6,12 @@ function CartItem({ cartItem }) {
 
   return (
     <div className="cart-item-container">
-      <img src={imageUrl} alt={`images of ${name}`} />
+      <img src={imageUrl} alt={name} />
       <div className="item-details">
-        <h2 className="name">{name}</h2>
-        <span>{quantity}</span>
-        <span>{`Price: $${price * quantity}`}</span>
+        <span className="name">{name}</span>
+        <span className="price">
+          {quantity} x ${price}
+        </span>
       </div>
     </div>
   );
