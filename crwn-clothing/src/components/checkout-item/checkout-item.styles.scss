@@ -1,0 +1,27 @@
+.checkout-item-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid gray;
+  padding: 10px 10px 10px 0;
+  height: 350px;
+
+  img {
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.delete-checkout-item, .change-checkout-number {
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.change-checkout-number {
+  padding: 10px;
+}
+
+.delete-checkout-item {
+  font-size: 2rem;
+}

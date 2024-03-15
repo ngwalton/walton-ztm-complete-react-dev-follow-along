@@ -6,6 +6,7 @@ export const CartContext = createContext({
   setIsCartOpen: () => {},
   cartItems: [],
   addItemToCart: () => {},
+  setCartItems: () => {},
 });
 
 const addCartItem = (cartItems, productToAdd) => {
@@ -37,8 +38,24 @@ export function CartProvider({ children }) {
     [cartItems]
   );
 
+  // const deleteItemFromCart = useCallback(
+  //   (productToDelete) => {
+  //     setCartItems(
+  //       cartItems.filter((cartItem) => cartItem.id !== productToDelete.id)
+  //     );
+  //   },
+  //   [cartItems]
+  // );
+
   const value = useMemo(
-    () => ({ isCartOpen, setIsCartOpen, addItemToCart, cartItems }),
+    () => ({
+      isCartOpen,
+      setIsCartOpen,
+      addItemToCart,
+      cartItems,
+      setCartItems,
+      // deleteItemFromCart,
+    }),
     [isCartOpen, addItemToCart, cartItems]
   );
 
