@@ -1,4 +1,10 @@
-import { createContext, useState, useMemo, useCallback } from 'react';
+import {
+  createContext,
+  useEffect,
+  useState,
+  useMemo,
+  useCallback,
+} from 'react';
 
 // actual value you want to access
 export const CartContext = createContext({
@@ -6,7 +12,8 @@ export const CartContext = createContext({
   setIsCartOpen: () => {},
   cartItems: [],
   addItemToCart: () => {},
-  setCartItems: () => {},
+  removeItemFromCart: () => {},
+  deleteItemFromCart: () => {},
 });
 
 const addCartItem = (cartItems, productToAdd) => {
@@ -38,14 +45,34 @@ export function CartProvider({ children }) {
     [cartItems]
   );
 
-  // const deleteItemFromCart = useCallback(
-  //   (productToDelete) => {
-  //     setCartItems(
-  //       cartItems.filter((cartItem) => cartItem.id !== productToDelete.id)
-  //     );
-  //   },
-  //   [cartItems]
-  // );
+  const removeItemFromCart = useCallback(
+    (productToRemove) =>
+      setCartItems(
+        cartItems.map((cartItem) =>
+          cartItem.id === productToRemove.id
+            ? { ...cartItem, quantity: cartItem.quantity - 1 }
+            : cartItem
+        )
+      ),
+    [cartItems]
+  );
+
+  const deleteItemFromCart = useCallback(
+    (productToDelete) => {
+      setCartItems(
+        cartItems.filter((cartItem) => cartItem.id !== productToDelete.id)
+      );
+    },
+    [cartItems]
+  );
+
+  useEffect(() => {
+    cartItems.forEach((cartItem) => {
+      if (cartItem.quantity === 0) {
+        deleteItemFromCart(cartItem);
+      }
+    });
+  }, [cartItems, deleteItemFromCart]);
 
   const value = useMemo(
     () => ({
@@ -53,10 +80,16 @@ export function CartProvider({ children }) {
       setIsCartOpen,
       addItemToCart,
       cartItems,
-      setCartItems,
-      // deleteItemFromCart,
+      removeItemFromCart,
+      deleteItemFromCart,
     }),
-    [isCartOpen, addItemToCart, cartItems]
+    [
+      isCartOpen,
+      addItemToCart,
+      cartItems,
+      deleteItemFromCart,
+      removeItemFromCart,
+    ]
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/prop-types */
 
-import { useCallback, useContext, useEffect } from 'react';
+import { useContext } from 'react';
 
 import { CartContext } from '../../contexts/cart.context';
 
@@ -10,28 +10,12 @@ import './checkout-item.styles.scss';
 
 function CheckoutItem({ cartItem }) {
   const { name, imageUrl, price, quantity } = cartItem;
-  const { cartItems, setCartItems, addItemToCart } = useContext(CartContext);
-
-  const deleteItemFromCart = useCallback(() => {
-    setCartItems(cartItems.filter((cartItem0) => cartItem0.id !== cartItem.id));
-  }, [cartItem.id, cartItems, setCartItems]);
-
-  useEffect(() => {
-    if (quantity === 0) {
-      deleteItemFromCart();
-    }
-  }, [quantity, deleteItemFromCart]);
-
-  const minusOne = () =>
-    setCartItems(
-      cartItems.map((cartItem0) =>
-        cartItem0.id === cartItem.id
-          ? { ...cartItem0, quantity: cartItem0.quantity - 1 }
-          : cartItem0
-      )
-    );
+  const { addItemToCart, removeItemFromCart, deleteItemFromCart } =
+    useContext(CartContext);
 
   const addItemHandler = () => addItemToCart(cartItem);
+  const removeItemHandler = () => removeItemFromCart(cartItem);
+  const deleteItemHandler = () => deleteItemFromCart(cartItem);
 
   return (
     <div className="checkout-item-container">
@@ -41,7 +25,7 @@ function CheckoutItem({ cartItem }) {
         <span
           role="button"
           className="change-checkout-number"
-          onClick={minusOne}
+          onClick={removeItemHandler}
         >
           &lang;
         </span>
@@ -58,7 +42,7 @@ function CheckoutItem({ cartItem }) {
       <div
         className="delete-checkout-item"
         role="button"
-        onClick={deleteItemFromCart}
+        onClick={deleteItemHandler}
       >
         &times;
       </div>
