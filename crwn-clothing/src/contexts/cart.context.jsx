@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useEffect,
-  useState,
-  useMemo,
-  useCallback,
-} from 'react';
+import { createContext, useState, useMemo, useCallback } from 'react';
 
 // actual value you want to access
 export const CartContext = createContext({
@@ -45,18 +39,6 @@ export function CartProvider({ children }) {
     [cartItems]
   );
 
-  const removeItemFromCart = useCallback(
-    (productToRemove) =>
-      setCartItems(
-        cartItems.map((cartItem) =>
-          cartItem.id === productToRemove.id
-            ? { ...cartItem, quantity: cartItem.quantity - 1 }
-            : cartItem
-        )
-      ),
-    [cartItems]
-  );
-
   const deleteItemFromCart = useCallback(
     (productToDelete) => {
       setCartItems(
@@ -66,13 +48,23 @@ export function CartProvider({ children }) {
     [cartItems]
   );
 
-  useEffect(() => {
-    cartItems.forEach((cartItem) => {
-      if (cartItem.quantity === 0) {
-        deleteItemFromCart(cartItem);
+  const removeItemFromCart = useCallback(
+    (productToRemove) => {
+      if (productToRemove.quantity === 1) {
+        deleteItemFromCart(productToRemove);
+        return;
       }
-    });
-  }, [cartItems, deleteItemFromCart]);
+
+      setCartItems(
+        cartItems.map((cartItem) =>
+          cartItem.id === productToRemove.id
+            ? { ...cartItem, quantity: cartItem.quantity - 1 }
+            : cartItem
+        )
+      );
+    },
+    [cartItems, deleteItemFromCart]
+  );
 
   const value = useMemo(
     () => ({
