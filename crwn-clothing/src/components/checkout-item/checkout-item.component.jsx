@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/prop-types */
 
-import { useContext } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 
 import { CartContext } from '../../contexts/cart.context';
 
@@ -11,6 +11,10 @@ import './checkout-item.styles.scss';
 function CheckoutItem({ cartItem }) {
   const { name, imageUrl, price, quantity } = cartItem;
   const { cartItems, setCartItems } = useContext(CartContext);
+
+  const deleteItemFromCart = useCallback(() => {
+    setCartItems(cartItems.filter((cartItem0) => cartItem0.id !== cartItem.id));
+  }, [cartItem.id, cartItems, setCartItems]);
 
   const updateItem = (increment) => {
     return () =>
@@ -23,12 +27,14 @@ function CheckoutItem({ cartItem }) {
       );
   };
 
+  useEffect(() => {
+    if (quantity === 0) {
+      deleteItemFromCart();
+    }
+  }, [quantity, deleteItemFromCart]);
+
   const pluseOne = updateItem(1);
   const minusOne = updateItem(-1);
-
-  const deleteItemFromCart = () => {
-    setCartItems(cartItems.filter((cartItem0) => cartItem0.id !== cartItem.id));
-  };
 
   return (
     <div className="checkout-item-container">
