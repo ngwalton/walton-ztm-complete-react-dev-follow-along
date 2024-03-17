@@ -16,24 +16,20 @@ function CheckoutItem({ cartItem }) {
     setCartItems(cartItems.filter((cartItem0) => cartItem0.id !== cartItem.id));
   }, [cartItem.id, cartItems, setCartItems]);
 
-  const updateItem = (increment) => {
-    return () =>
-      setCartItems(
-        cartItems.map((cartItem0) =>
-          cartItem0.id === cartItem.id
-            ? { ...cartItem0, quantity: cartItem0.quantity + increment }
-            : cartItem0
-        )
-      );
-  };
-
   useEffect(() => {
     if (quantity === 0) {
       deleteItemFromCart();
     }
   }, [quantity, deleteItemFromCart]);
 
-  const minusOne = updateItem(-1);
+  const minusOne = () =>
+    setCartItems(
+      cartItems.map((cartItem0) =>
+        cartItem0.id === cartItem.id
+          ? { ...cartItem0, quantity: cartItem0.quantity - 1 }
+          : cartItem0
+      )
+    );
 
   const addItemHandler = () => addItemToCart(cartItem);
 
