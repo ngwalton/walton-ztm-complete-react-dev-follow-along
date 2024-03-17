@@ -7,7 +7,7 @@ export const CartContext = createContext({
   cartItems: [],
   addItemToCart: () => {},
   removeItemFromCart: () => {},
-  deleteItemFromCart: () => {},
+  clearItemFromCart: () => {},
 });
 
 const addCartItem = (cartItems, productToAdd) => {
@@ -26,8 +26,8 @@ const addCartItem = (cartItems, productToAdd) => {
   return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
 
-const deleteCartItem = (cartItems, cartItemToDelete) => {
-  return cartItems.filter((cartItem) => cartItem.id !== cartItemToDelete.id);
+const clearCartItem = (cartItems, cartItemToClear) => {
+  return cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
 };
 
 const removeCartItem = (cartItems, cartItemToRemove) => {
@@ -36,7 +36,7 @@ const removeCartItem = (cartItems, cartItemToRemove) => {
   );
 
   if (existingCartItem.quantity === 1) {
-    return deleteCartItem(cartItems, cartItemToRemove);
+    return clearCartItem(cartItems, cartItemToRemove);
   }
 
   return cartItems.map((cartItem) =>
@@ -66,9 +66,9 @@ export function CartProvider({ children }) {
     [cartItems]
   );
 
-  const deleteItemFromCart = useCallback(
-    (cartItemToDelete) => {
-      setCartItems(deleteCartItem(cartItems, cartItemToDelete));
+  const clearItemFromCart = useCallback(
+    (cartItemToClear) => {
+      setCartItems(clearCartItem(cartItems, cartItemToClear));
     },
     [cartItems]
   );
@@ -80,13 +80,13 @@ export function CartProvider({ children }) {
       addItemToCart,
       cartItems,
       removeItemFromCart,
-      deleteItemFromCart,
+      clearItemFromCart,
     }),
     [
       isCartOpen,
       addItemToCart,
       cartItems,
-      deleteItemFromCart,
+      clearItemFromCart,
       removeItemFromCart,
     ]
   );

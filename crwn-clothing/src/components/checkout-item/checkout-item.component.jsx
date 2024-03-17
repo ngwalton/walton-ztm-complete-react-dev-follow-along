@@ -10,12 +10,12 @@ import './checkout-item.styles.scss';
 
 function CheckoutItem({ cartItem }) {
   const { name, imageUrl, price, quantity } = cartItem;
-  const { addItemToCart, removeItemFromCart, deleteItemFromCart } =
+  const { addItemToCart, removeItemFromCart, clearItemFromCart } =
     useContext(CartContext);
 
   const addItemHandler = () => addItemToCart(cartItem);
   const removeItemHandler = () => removeItemFromCart(cartItem);
-  const deleteItemHandler = () => deleteItemFromCart(cartItem);
+  const clearItemHandler = () => clearItemFromCart(cartItem);
 
   return (
     <div className="checkout-item-container">
@@ -41,7 +41,7 @@ function CheckoutItem({ cartItem }) {
         </span>
       </div>
       <span className="price">{price}</span>
-      <span className="remove-button" role="button" onClick={deleteItemHandler}>
+      <span className="remove-button" role="button" onClick={clearItemHandler}>
         &#10005;
       </span>
     </div>
