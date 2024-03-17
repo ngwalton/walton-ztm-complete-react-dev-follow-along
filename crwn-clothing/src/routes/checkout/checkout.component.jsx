@@ -16,16 +16,26 @@ function Checkout() {
   return (
     <div className="checkout-container">
       <div className="checkout-header">
-        <div>Product</div>
-        <div>Description</div>
-        <div>Quantity</div>
-        <div>Prince</div>
-        <div>Remove</div>
+        <div className="header-block">
+          <span>Product</span>
+        </div>
+        <div className="header-block">
+          <span>Description</span>
+        </div>
+        <div className="header-block">
+          <span>Quantity</span>
+        </div>
+        <div className="header-block">
+          <span>Prince</span>
+        </div>
+        <div className="header-block">
+          <span>Remove</span>
+        </div>
       </div>
       {cartItems.map((cartItem) => (
         <CheckoutItem key={cartItem.id} cartItem={cartItem} />
       ))}
-      <div className="purchase-total">Total: ${purchaseTotal}</div>
+      <div className="total">Total: ${purchaseTotal}</div>
     </div>
   );
 }

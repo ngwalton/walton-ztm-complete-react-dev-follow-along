@@ -19,9 +19,11 @@ function CheckoutItem({ cartItem }) {
 
   return (
     <div className="checkout-item-container">
-      <img src={imageUrl} alt={name} />
-      <h3>{name}</h3>
-      <div>
+      <div className="image-container">
+        <img src={imageUrl} alt={name} />
+      </div>
+      <span className="name">{name}</span>
+      <div className="quantity">
         <span
           role="button"
           className="change-checkout-number"
@@ -38,14 +40,10 @@ function CheckoutItem({ cartItem }) {
           &rang;
         </span>
       </div>
-      <div>{price}</div>
-      <div
-        className="delete-checkout-item"
-        role="button"
-        onClick={deleteItemHandler}
-      >
-        &times;
-      </div>
+      <span className="price">{price}</span>
+      <span className="remove-button" role="button" onClick={deleteItemHandler}>
+        &#10005;
+      </span>
     </div>
   );
 }
