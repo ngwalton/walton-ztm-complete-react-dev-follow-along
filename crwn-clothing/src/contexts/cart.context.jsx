@@ -26,6 +26,26 @@ const addCartItem = (cartItems, productToAdd) => {
   return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
 
+const deleteCartItem = (cartItems, cartItemToDelete) => {
+  return cartItems.filter((cartItem) => cartItem.id !== cartItemToDelete.id);
+};
+
+const removeCartItem = (cartItems, cartItemToRemove) => {
+  const existingCartItem = cartItems.find(
+    (cartItem) => cartItemToRemove.id === cartItem.id
+  );
+
+  if (existingCartItem.quantity === 1) {
+    return deleteCartItem(cartItems, cartItemToRemove);
+  }
+
+  return cartItems.map((cartItem) =>
+    cartItemToRemove.id === cartItem.id
+      ? { ...cartItem, quantity: cartItem.quantity - 1 }
+      : cartItem
+  );
+};
+
 // eslint-disable-next-line react/prop-types
 export function CartProvider({ children }) {
   // eslint-disable-next-line no-unused-vars
@@ -39,31 +59,18 @@ export function CartProvider({ children }) {
     [cartItems]
   );
 
-  const deleteItemFromCart = useCallback(
-    (productToDelete) => {
-      setCartItems(
-        cartItems.filter((cartItem) => cartItem.id !== productToDelete.id)
-      );
+  const removeItemFromCart = useCallback(
+    (cartItemToRemove) => {
+      setCartItems(removeCartItem(cartItems, cartItemToRemove));
     },
     [cartItems]
   );
 
-  const removeItemFromCart = useCallback(
-    (productToRemove) => {
-      if (productToRemove.quantity === 1) {
-        deleteItemFromCart(productToRemove);
-        return;
-      }
-
-      setCartItems(
-        cartItems.map((cartItem) =>
-          cartItem.id === productToRemove.id
-            ? { ...cartItem, quantity: cartItem.quantity - 1 }
-            : cartItem
-        )
-      );
+  const deleteItemFromCart = useCallback(
+    (cartItemToDelete) => {
+      setCartItems(deleteCartItem(cartItems, cartItemToDelete));
     },
-    [cartItems, deleteItemFromCart]
+    [cartItems]
   );
 
   const value = useMemo(
