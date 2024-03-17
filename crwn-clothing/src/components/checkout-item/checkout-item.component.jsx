@@ -10,7 +10,7 @@ import './checkout-item.styles.scss';
 
 function CheckoutItem({ cartItem }) {
   const { name, imageUrl, price, quantity } = cartItem;
-  const { cartItems, setCartItems } = useContext(CartContext);
+  const { cartItems, setCartItems, addItemToCart } = useContext(CartContext);
 
   const deleteItemFromCart = useCallback(() => {
     setCartItems(cartItems.filter((cartItem0) => cartItem0.id !== cartItem.id));
@@ -33,8 +33,9 @@ function CheckoutItem({ cartItem }) {
     }
   }, [quantity, deleteItemFromCart]);
 
-  const pluseOne = updateItem(1);
   const minusOne = updateItem(-1);
+
+  const addItemHandler = () => addItemToCart(cartItem);
 
   return (
     <div className="checkout-item-container">
@@ -52,7 +53,7 @@ function CheckoutItem({ cartItem }) {
         <span
           role="button"
           className="change-checkout-number"
-          onClick={pluseOne}
+          onClick={addItemHandler}
         >
           &rang;
         </span>
