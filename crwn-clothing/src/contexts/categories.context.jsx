@@ -12,7 +12,6 @@ export const CategoriesContext = createContext({
 
 // eslint-disable-next-line react/prop-types
 export function CategoriesProvider({ children }) {
-  // eslint-disable-next-line no-unused-vars
   const [categoriesMap, setCategoriesMap] = useState({});
 
   // this isn't the place to be uploading data, but we did it anyway
@@ -24,7 +23,7 @@ export function CategoriesProvider({ children }) {
   useEffect(() => {
     const getCategoriesMap = async () => {
       const categoryMap = await getCategoriesAndDocuments();
-      console.log(categoryMap);
+      setCategoriesMap(categoryMap);
     };
 
     getCategoriesMap();
