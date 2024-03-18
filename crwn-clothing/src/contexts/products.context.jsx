@@ -6,14 +6,14 @@ import { getCategoriesAndDocuments } from '../utils/firebase/firebase.utils';
 // import SHOP_DATA from '../shop-data';
 
 // actual value you want to access
-export const ProductsContext = createContext({
-  products: [],
+export const CategoriesContext = createContext({
+  categoriesMap: {},
 });
 
 // eslint-disable-next-line react/prop-types
-export function ProductProvider({ children }) {
+export function CategoriesProvider({ children }) {
   // eslint-disable-next-line no-unused-vars
-  const [products, setProducts] = useState([]);
+  const [categoriesMap, setCategoriesMap] = useState({});
 
   // this isn't the place to be uploading data, but we did it anyway
   // useEffect(
@@ -30,11 +30,11 @@ export function ProductProvider({ children }) {
     getCategoriesMap();
   }, []);
 
-  const value = useMemo(() => ({ products }), [products]);
+  const value = useMemo(() => ({ categoriesMap }), [categoriesMap]);
 
   return (
-    <ProductsContext.Provider value={value}>
+    <CategoriesContext.Provider value={value}>
       {children}
-    </ProductsContext.Provider>
+    </CategoriesContext.Provider>
   );
 }

@@ -1,17 +1,17 @@
-import { useContext } from 'react';
+// import { useContext } from 'react';
 
-import { ProductsContext } from '../../contexts/products.context';
-import ProductCard from '../../components/product-card/product-card.component';
+// import { CategoriesContext } from '../../contexts/products.context';
+// import ProductCard from '../../components/product-card/product-card.component';
 
 import './shop.styles.scss';
 
 function Shop() {
-  const { products } = useContext(ProductsContext);
+  // const { categoriesMap } = useContext(CategoriesContext);
   return (
     <div className="products-container">
-      {products.map((product) => {
+      {/* {categoriesMap.map((product) => {
         return <ProductCard key={product.id} product={product} />;
-      })}
+      })} */}
     </div>
   );
 }
