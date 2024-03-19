@@ -6,7 +6,7 @@ function FormInput({ label, ...otherProps }) {
     <Group>
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <Input {...otherProps} />
-      <FormInputLabel shrink={otherProps.value.length} htmlFor={otherProps.id}>
+      <FormInputLabel $shrink={otherProps.value.length} htmlFor={otherProps.id}>
         {label}
       </FormInputLabel>
     </Group>
