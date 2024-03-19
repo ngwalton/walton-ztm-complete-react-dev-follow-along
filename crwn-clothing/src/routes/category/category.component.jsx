@@ -17,7 +17,7 @@ function Category() {
   }, [category, categoriesMap]);
 
   return (
-    <div className="shop-category-container">
+    <div className="category-container">
       {/* safeguard against loading component before data are available */}
       {products &&
         products.map((product) => (
