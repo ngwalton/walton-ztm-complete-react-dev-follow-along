@@ -17,13 +17,16 @@ function Category() {
   }, [category, categoriesMap]);
 
   return (
-    <div className="category-container">
-      {/* safeguard against loading component before data are available */}
-      {products &&
-        products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-    </div>
+    <>
+      <h1 className="category-title">{category}</h1>
+      <div className="category-container">
+        {/* safeguard against loading component before data are available */}
+        {products &&
+          products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+      </div>
+    </>
   );
 }
 
