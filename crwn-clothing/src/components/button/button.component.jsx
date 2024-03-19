@@ -1,23 +1,31 @@
-import './button.styles.scss';
+import {
+  BaseButton,
+  GoogleSignInButton,
+  InvertedButton,
+} from './button.styles';
 
-const BUTTON_TYPES_CLASSES = {
+export const BUTTON_TYPES_CLASSES = {
+  base: 'base',
   google: 'google-sign-in',
   inverted: 'inverted',
 };
 
+const getButton = (buttonType = BUTTON_TYPES_CLASSES.base) =>
+  ({
+    [BUTTON_TYPES_CLASSES.base]: BaseButton,
+    [BUTTON_TYPES_CLASSES.google]: GoogleSignInButton,
+    [BUTTON_TYPES_CLASSES.inverted]: InvertedButton,
+  })[buttonType];
+
 // eslint-disable-next-line react/prop-types
 function Button({ children, buttonType, ...otherProps }) {
-  let className = 'button-container';
-
-  if (buttonType) {
-    className = `${className} ${BUTTON_TYPES_CLASSES[buttonType]}`;
-  }
+  const CustomButton = getButton(buttonType);
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
-    <button type="button" className={className} {...otherProps}>
+    <CustomButton type="button" {...otherProps}>
       {children}
-    </button>
+    </CustomButton>
   );
 }
 
