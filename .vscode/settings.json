@@ -5,5 +5,7 @@
   "[javascript]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
   "[json]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
   "[jsx-tags]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
-  "[javascriptreact]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" }
+  "[javascriptreact]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
+  "[css]": {"editor.defaultFormatter": "esbenp.prettier-vscode"},
+  "[scss]": {"editor.defaultFormatter": "esbenp.prettier-vscode"}
 }
